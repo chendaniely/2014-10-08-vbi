@@ -1,0 +1,97 @@
+---
+title: "some title"
+author: "Daniel Chen"
+date: "10/09/2014"
+output:
+  html_document:
+    number_sections: yes
+    toc: yes
+---
+
+```{r}
+setwd("~/git/swc/2014-10-08-vbi/novice/r")
+data(iris)
+class(iris)
+```
+
+```{r}
+names(iris)
+```
+
+```{r}
+iris[, 1]
+```
+
+```{r}
+iris$Sepal.Length
+```
+
+```{r}
+iris$totalLength <- iris$Sepal.Length + iris$Petal.Length
+names(iris)
+```
+
+forcing species to be a character, not a factor
+```{r}
+iris2 <- iris
+class(iris2$Species)
+iris$Species <- as.character(iris$Species)
+class(iris$Species)
+```
+
+calulate a table
+convert it into a dataframe
+write table to file
+```{r}
+table.df <- as.data.frame(table(iris$Species))
+write.csv(table.df, 'tabledf.csv')
+
+unique(sort(iris$Species))
+```
+
+# For loops
+```{r}
+words <- c("hello", "everyone", "this", "is", "a", "vector")
+length(words)
+words[1]
+words[2]
+for(i in c(1 : length(words))){
+  print(words[i])
+}
+
+```
+
+
+looping with functino
+```{r}
+analyze <- function(filename){
+  # we will use the print function to print out things to the screen
+  print(filename)
+  data <- read.csv(file = filename, header = FALSE)
+  print('min of dataset')
+  print(min(data))
+  print('max of dataset')
+  print(max(data))
+  print('columnwise means')
+  data_mean <- apply(data, 2, mean)
+  print(data_mean)
+  plot(data_mean)
+}
+
+in_files <- list.files(pattern = '^inflammation')
+in_files
+```
+
+```{r}
+for(i in in_files){
+  analyze(i)
+}
+```
+
+```{r}
+library(dplyr)
+unique(sort(iris$Species))
+
+iris$Species %>% sort() %>% unique()
+```
+

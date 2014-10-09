@@ -240,3 +240,4 @@ words <- c("hello", "everyone", "this", "is", "a", "vector")
 words[1]
 words[2]
 
+something <- 3
